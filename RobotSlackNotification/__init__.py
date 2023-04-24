@@ -2,7 +2,7 @@ import slack
 from const_messages import principal_block, start_suite_message, tread_error_message
 
 
-class RobotframeworkSlackNotification:
+class RobotSlackNotification:
 
     ROBOT_LISTENER_API_VERSION = 3
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
