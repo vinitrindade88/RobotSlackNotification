@@ -27,6 +27,7 @@ class RobotframeworkSlackNotification:
         self.cicd_id = cicd_id
         self.devicefarm_url = devicefarm_url
         self.client = slack.WebClient(token=slack_token)
+        self.ROBOT_LIBRARY_LISTENER = self
         self.message_timestamp = []
 
     def start_suite(self, data, result):
