@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.10.5 on win32)" generated="20230424 16:13:45.852" rpa="false" schemaversion="3">
+<suite id="s1" name="Robotframework-Slack" source="C:\Workspace\robotframework-slack">
+<suite id="s1-s1" name="Robot Test" source="C:\Workspace\robotframework-slack\robot_test">
+<suite id="s1-s1-s1" name="Robot Listener" source="C:\Workspace\robotframework-slack\robot_test\robot_listener.robot">
+<test id="s1-s1-s1-t1" name="Cenário: Falha Proposital" line="2">
+<kw name="Fail" library="BuiltIn">
+<arg>FALHA</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<msg timestamp="20230424 16:13:45.908" level="FAIL">FALHA</msg>
+<status status="FAIL" starttime="20230424 16:13:45.907" endtime="20230424 16:13:45.908"/>
+</kw>
+<status status="FAIL" starttime="20230424 16:13:45.907" endtime="20230424 16:13:45.908">FALHA</status>
+</test>
+<test id="s1-s1-s1-t2" name="Sucesso" line="5">
+<kw name="Pass Execution" library="BuiltIn">
+<arg>Sucesso</arg>
+<doc>Skips rest of the current test, setup, or teardown with PASS status.</doc>
+<msg timestamp="20230424 16:13:45.910" level="INFO">Execution passed with message:
+Sucesso</msg>
+<status status="PASS" starttime="20230424 16:13:45.910" endtime="20230424 16:13:45.910"/>
+</kw>
+<status status="PASS" starttime="20230424 16:13:45.909" endtime="20230424 16:13:45.911">Sucesso</status>
+</test>
+<test id="s1-s1-s1-t3" name="Skipado" line="8">
+<kw name="Skip" library="BuiltIn">
+<arg>Skipado</arg>
+<doc>Skips the rest of the current test.</doc>
+<msg timestamp="20230424 16:13:45.913" level="SKIP">Skipado</msg>
+<status status="SKIP" starttime="20230424 16:13:45.912" endtime="20230424 16:13:45.913"/>
+</kw>
+<status status="SKIP" starttime="20230424 16:13:45.912" endtime="20230424 16:13:45.913">Skipado</status>
+</test>
+<status status="FAIL" starttime="20230424 16:13:45.903" endtime="20230424 16:13:45.915"/>
+</suite>
+<suite id="s1-s1-s2" name="Robot Listener 2" source="C:\Workspace\robotframework-slack\robot_test\robot_listener_2.robot">
+<test id="s1-s1-s2-t1" name="Cenário: Falha Proposital 2" line="2">
+<kw name="Fail" library="BuiltIn">
+<arg>FALHA</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<msg timestamp="20230424 16:13:45.923" level="FAIL">FALHA</msg>
+<status status="FAIL" starttime="20230424 16:13:45.922" endtime="20230424 16:13:45.923"/>
+</kw>
+<status status="FAIL" starttime="20230424 16:13:45.922" endtime="20230424 16:13:45.924">FALHA</status>
+</test>
+<test id="s1-s1-s2-t2" name="Sucesso" line="5">
+<kw name="Sleep" library="BuiltIn">
+<arg>10</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="FAIL" starttime="20230424 16:13:45.925" endtime="20230424 16:13:54.048"/>
+</kw>
+<kw name="Pass Execution" library="BuiltIn">
+<arg>Sucesso</arg>
+<doc>Skips rest of the current test, setup, or teardown with PASS status.</doc>
+<status status="NOT RUN" starttime="20230424 16:13:54.049" endtime="20230424 16:13:54.049"/>
+</kw>
+<status status="FAIL" starttime="20230424 16:13:45.925" endtime="20230424 16:13:54.050">Execution terminated by signal</status>
+</test>
+<test id="s1-s1-s2-t3" name="Skipado 1" line="9">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230424 16:13:54.051" endtime="20230424 16:13:54.052">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s2-t4" name="Skipado 2" line="12">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230424 16:13:54.053" endtime="20230424 16:13:54.053">Test execution stopped due to a fatal error.</status>
+</test>
+<status status="FAIL" starttime="20230424 16:13:45.917" endtime="20230424 16:13:54.055"/>
+</suite>
+<suite id="s1-s1-s3" name="Robot Listener 3" source="C:\Workspace\robotframework-slack\robot_test\robot_listener_3.robot">
+<test id="s1-s1-s3-t1" name="Cenário: Falha Proposital 3" line="2">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230424 16:13:54.058" endtime="20230424 16:13:54.059">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s3-t2" name="Sucesso 1" line="5">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230424 16:13:54.060" endtime="20230424 16:13:54.061">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s3-t3" name="Sucesso 2" line="8">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230424 16:13:54.062" endtime="20230424 16:13:54.063">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s3-t4" name="Skipado" line="11">
+<tag>robot:exit</tag>
+<status status="FAIL" starttime="20230424 16:13:54.065" endtime="20230424 16:13:54.065">Test execution stopped due to a fatal error.</status>
+</test>
+<status status="FAIL" starttime="20230424 16:13:54.057" endtime="20230424 16:13:54.067"/>
+</suite>
+<status status="FAIL" starttime="20230424 16:13:45.898" endtime="20230424 16:13:54.069"/>
+</suite>
+<status status="FAIL" starttime="20230424 16:13:45.860" endtime="20230424 16:13:54.071"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="9" skip="1">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="3" skip="1" info="combined" combined="NOT robot:exit">NOT robot:exit</stat>
+</tag>
+<suite>
+<stat pass="1" fail="9" skip="1" id="s1" name="Robotframework-Slack">Robotframework-Slack</stat>
+<stat pass="1" fail="9" skip="1" id="s1-s1" name="Robot Test">Robotframework-Slack.Robot Test</stat>
+<stat pass="1" fail="1" skip="1" id="s1-s1-s1" name="Robot Listener">Robotframework-Slack.Robot Test.Robot Listener</stat>
+<stat pass="0" fail="4" skip="0" id="s1-s1-s2" name="Robot Listener 2">Robotframework-Slack.Robot Test.Robot Listener 2</stat>
+<stat pass="0" fail="4" skip="0" id="s1-s1-s3" name="Robot Listener 3">Robotframework-Slack.Robot Test.Robot Listener 3</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20230424 16:13:45.856" level="ERROR">Taking listener '.\robotframework-slack\test_class.py:8270:false' into use failed: Importing listener 'C:\Workspace\robotframework-slack\robotframework-slack\test_class.py' failed: Modules do not take arguments.</msg>
+</errors>
+</robot>
