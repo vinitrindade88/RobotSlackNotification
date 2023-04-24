@@ -1,6 +1,5 @@
-import slack
-from const_messages import principal_block, start_suite_message, tread_error_message
-
+import slack_sdk
+from RobotSlackNotification.const_messages import principal_block, start_suite_message, tread_error_message
 
 class RobotSlackNotification:
 
@@ -26,7 +25,7 @@ class RobotSlackNotification:
         self.cicd_url = cicd_url
         self.cicd_id = cicd_id
         self.devicefarm_url = devicefarm_url
-        self.client = slack.WebClient(token=slack_token)
+        self.client = slack_sdk.WebClient(token=slack_token)
         self.ROBOT_LIBRARY_LISTENER = self
         self.message_timestamp = []
 
@@ -59,7 +58,7 @@ class RobotSlackNotification:
         except:
             return statistics.all  # robotframework > 4.0.0
 
-    def _post_principal_message(self, result, message):
+    def _post_principal_message(self, result, message: str):
         if not result.parent:
             response = self.client.chat_postMessage(channel=self.channel_id, blocks=message)
             return response['ts']
@@ -68,7 +67,7 @@ class RobotSlackNotification:
         if result.failed or result.skipped:
             self.client.chat_postMessage(channel=self.channel_id, attachments=message, thread_ts=message_ts)
 
-    def _update_principal_message(self, result, message_timestamp, message):
+    def _update_principal_message(self, result, message_timestamp, message: str):
         if not result.parent:
             self.client.chat_update(channel=self.channel_id, blocks=message, ts=message_timestamp)
 
@@ -78,7 +77,7 @@ class RobotSlackNotification:
         '''
 
         if result.passed == False and result.failed == False:
-            start_suite_message[7]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>* || *BrowserStack*: *<{self.devicefarm_url}|{cicd_id}>*'
+            start_suite_message[7]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>* || *BrowserStack*: *<{self.devicefarm_url}|{self.cicd_id}>*'
 
             return start_suite_message
         else:

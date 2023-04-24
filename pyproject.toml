@@ -4,7 +4,9 @@ version = "0.0.2-alpha"
 description = ""
 authors = ["vinitrindade88 <vinicius.trindade@diagroup.com>"]
 readme = "README.md"
-packages = [{include = "RobotSlackNotification"}]
+packages = [
+    {include = "RobotSlackNotification"}
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
