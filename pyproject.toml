@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "robotframework-slack"
-version = "0.0.1-alpha"
+version = "0.0.2-alpha"
 description = ""
 authors = ["vinitrindade88 <vinicius.trindade@diagroup.com>"]
 readme = "README.md"
