@@ -80,6 +80,7 @@ class RobotSlackNotification:
         '''
 
         if result.passed == False and result.failed == False:
+            start_suite_message[0]['text']['text'] = f'Aplicación en prueba:  {application}'
             if self.frontend_test:
                 start_suite_message[7]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>* || *BrowserStack*: *<{self.devicefarm_url}|{self.cicd_id}>*'
             else:
