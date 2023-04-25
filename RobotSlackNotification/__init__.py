@@ -28,6 +28,7 @@ class RobotSlackNotification:
         self.client = slack_sdk.WebClient(token=slack_token)
         self.ROBOT_LIBRARY_LISTENER = self
         self.message_timestamp = []
+        self.text_fallback = f'Aplicación en prueba: {self.application}'
 
     def start_suite(self, data, result):
         message = self._build_principal_message(result, self.application, self.environment, 0, 0, 0, 0)
@@ -60,16 +61,16 @@ class RobotSlackNotification:
 
     def _post_principal_message(self, result, message: str):
         if not result.parent:
-            response = self.client.chat_postMessage(channel=self.channel_id, blocks=message, text=message)
+            response = self.client.chat_postMessage(channel=self.channel_id, blocks=message, text=self.text_fallback)
             return response['ts']
 
     def _post_thread_message(self, result, message, message_ts):
         if result.failed or result.skipped:
-            self.client.chat_postMessage(channel=self.channel_id, attachments=message, thread_ts=message_ts)
+            self.client.chat_postMessage(channel=self.channel_id, attachments=message, text=self.text_fallback, thread_ts=message_ts)
 
     def _update_principal_message(self, result, message_timestamp, message: str):
         if not result.parent:
-            self.client.chat_update(channel=self.channel_id, blocks=message, text=message, ts=message_timestamp)
+            self.client.chat_update(channel=self.channel_id, blocks=message, text=self.text_fallback, ts=message_timestamp)
 
     def _build_principal_message(self, result, application, environment, executions, success_executions, failed_executions, skipped_executions):
         '''
