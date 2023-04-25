@@ -120,7 +120,7 @@ start_suite_message = [
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": ":white_circle: *En Proceso*"
+            "text": ":slack_load: *En Prueba*"
         }
     },
     {
@@ -161,7 +161,7 @@ tread_error_message = [
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "*Mensaje de Error*"
+                    "text": "*Mensaje*"
                 }
             },
             {
