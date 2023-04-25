@@ -15,7 +15,8 @@ class RobotSlackNotification:
                  branch: str,
                  cicd_url: str,
                  cicd_id: str,
-                 devicefarm_url: str):
+                 devicefarm_url: str,
+                 frontend_test = False):
 
         self.slack_token = slack_token
         self.channel_id = channel_id
@@ -25,6 +26,7 @@ class RobotSlackNotification:
         self.cicd_url = cicd_url
         self.cicd_id = cicd_id
         self.devicefarm_url = devicefarm_url
+        self.frontend_test = frontend_test
         self.client = slack_sdk.WebClient(token=slack_token)
         self.ROBOT_LIBRARY_LISTENER = self
         self.message_timestamp = []
@@ -78,7 +80,10 @@ class RobotSlackNotification:
         '''
 
         if result.passed == False and result.failed == False:
-            start_suite_message[7]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>* || *BrowserStack*: *<{self.devicefarm_url}|{self.cicd_id}>*'
+            if self.frontend_test:
+                start_suite_message[7]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>* || *BrowserStack*: *<{self.devicefarm_url}|{self.cicd_id}>*'
+            else:
+                start_suite_message[7]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>*'
 
             return start_suite_message
         else:
@@ -101,7 +106,10 @@ class RobotSlackNotification:
             principal_block[8]['fields'][0]['text'] = f'*Probado con error:*\n{failed_executions}'
             principal_block[8]['fields'][1]['text'] = f'*Pruebas salteadas:*\n{skipped_executions}'
 
-            principal_block[11]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>* || *BrowserStack*: *<{self.devicefarm_url}|{self.cicd_id}>*'
+            if self.frontend_test:
+                principal_block[11]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>* || *BrowserStack*: *<{self.devicefarm_url}|{self.cicd_id}>*'
+            else:
+                principal_block[11]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>*'
 
             return principal_block
 

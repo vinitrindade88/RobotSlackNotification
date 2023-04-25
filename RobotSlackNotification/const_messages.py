@@ -11,7 +11,7 @@ principal_block = [
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": " || *Branch*: main || *Enterno*: qa"
+            "text": " || *Branch*: main || *Entorno*: qa"
         }
     },
     {
@@ -102,7 +102,7 @@ start_suite_message = [
         "type": "section",
         "text": {
             "type": "mrkdwn",
-            "text": "*Branch*: main || *Enterno*: qa"
+            "text": "*Branch*: main || *Entorno*: qa"
         }
     },
     {
