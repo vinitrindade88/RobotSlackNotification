@@ -11,7 +11,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.9"
 slack-sdk = "^3.21.2"
-robotframework = "^6.0.2"
+robotframework = "^5.0.1"
 slackclient = "^2.9.4"
 
 
