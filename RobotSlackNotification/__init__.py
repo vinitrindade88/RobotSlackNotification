@@ -117,7 +117,7 @@ class RobotSlackNotification:
     def _build_thread_message(self, result, attachment_color):
         tread_error_message[0]['color'] = f'{attachment_color}'
         tread_error_message[0]['blocks'][0]['text']['text'] = f'{result.name}'
-        tread_error_message[0]['blocks'][3]['text']['text'] = f'{result.name}'
+        tread_error_message[0]['blocks'][3]['text']['text'] = f'{result.message}'
 
         return tread_error_message
 
