@@ -60,7 +60,7 @@ class RobotSlackNotification:
 
     def _post_principal_message(self, result, message: str):
         if not result.parent:
-            response = self.client.chat_postMessage(channel=self.channel_id, blocks=message)
+            response = self.client.chat_postMessage(channel=self.channel_id, blocks=message, text=message)
             return response['ts']
 
     def _post_thread_message(self, result, message, message_ts):
@@ -69,7 +69,7 @@ class RobotSlackNotification:
 
     def _update_principal_message(self, result, message_timestamp, message: str):
         if not result.parent:
-            self.client.chat_update(channel=self.channel_id, blocks=message, ts=message_timestamp)
+            self.client.chat_update(channel=self.channel_id, blocks=message, text=message, ts=message_timestamp)
 
     def _build_principal_message(self, result, application, environment, executions, success_executions, failed_executions, skipped_executions):
         '''
