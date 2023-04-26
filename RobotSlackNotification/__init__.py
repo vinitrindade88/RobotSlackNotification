@@ -63,7 +63,7 @@ class RobotSlackNotification:
 
     def _post_principal_message(self, result, message: str):
         if not result.parent:
-            response = self.client.chat_postMessage(channel=self.channel_id, blocks=message, text=self.text_fallback)
+            response = self.client.chat_postMessage(channel=self.channel_id, blocks=message, text=self.text_fallback, unfurl_links=False, unfurl_media=False)
             return response['ts']
 
     def _post_thread_message(self, result, message, message_ts):
