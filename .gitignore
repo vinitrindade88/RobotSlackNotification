@@ -5,3 +5,4 @@ output.xml
 report.html
 log
 /robot_test
+__pycache__
