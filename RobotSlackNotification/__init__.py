@@ -1,5 +1,5 @@
 import slack_sdk
-from RobotSlackNotification.const_messages import principal_block, start_suite_message, tread_error_message
+from RobotSlackNotification.const_messages import principal_block, tread_error_message
 
 class RobotSlackNotification:
 
@@ -30,6 +30,7 @@ class RobotSlackNotification:
         self.client = slack_sdk.WebClient(token=slack_token)
         self.ROBOT_LIBRARY_LISTENER = self
         self.message_timestamp = []
+        self.status_list = []
         self.text_fallback = f'Aplicación en prueba: {self.application}'
 
     def start_suite(self, data, result):
@@ -38,21 +39,32 @@ class RobotSlackNotification:
         self.message_timestamp.append(ts)
 
     def end_suite(self, data, result):
-        statistics = self._robot_statistic(result.statistics)
+        if not result.parent:
+            statistics = self._robot_statistic(result.statistics)
 
-        count_pass = statistics.passed
-        count_failed = statistics.failed
-        count_skipped = statistics.skipped
-        count_total = statistics.total
+            count_pass = statistics.passed
+            count_failed = statistics.failed
+            count_skipped = statistics.skipped
+            count_total = statistics.total
 
-        message = self._build_principal_message(result, self.application, self.environment, count_total, count_pass, count_failed,
-                                                count_skipped)
-        self._update_principal_message(result, self.message_timestamp[0], message)
+            message = self._build_principal_message(result, self.application, self.environment, count_total, count_pass, count_failed,
+                                                    count_skipped)
+            self._update_principal_message(result, self.message_timestamp[0], message)
 
     def end_test(self, data, result):
         attachment_color = self._attachment_color(result)
         message = self._build_thread_message(result, attachment_color)
         self._post_thread_message(result, message, self.message_timestamp[0])
+
+        self.status_list.append(result.status)
+        count_pass = self.status_list.count('PASS')
+        count_failed = self.status_list.count('FAIL')
+        count_skipped = self.status_list.count('SKIP')
+        count_total = len(self.status_list)
+
+        message = self._build_principal_message(result, self.application, self.environment, count_total, count_pass, count_failed,
+                                                count_skipped)
+        self._update_principal_message(result, self.message_timestamp[0], message)
 
     def _robot_statistic(self, statistics):
         try:
@@ -71,48 +83,41 @@ class RobotSlackNotification:
             self.client.chat_postMessage(channel=self.channel_id, attachments=message, text=self.text_fallback, thread_ts=message_ts)
 
     def _update_principal_message(self, result, message_timestamp, message: str):
-        if not result.parent:
-            self.client.chat_update(channel=self.channel_id, blocks=message, text=self.text_fallback, ts=message_timestamp)
+        # if not result.parent:
+        self.client.chat_update(channel=self.channel_id, blocks=message, text=self.text_fallback, ts=message_timestamp)
 
     def _build_principal_message(self, result, application, environment, executions, success_executions, failed_executions, skipped_executions):
         '''
         Builds the main message block
         '''
 
-        if result.passed == False and result.failed == False:
-            start_suite_message[0]['text']['text'] = f'Aplicación en prueba:  {application}'
-            if self.frontend_test:
-                start_suite_message[7]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>* || *BrowserStack*: *<{self.devicefarm_url}|{self.cicd_id}>*'
-            else:
-                start_suite_message[7]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>*'
+        result_status = 'En Prueba'
+        result_icon = ":slack_load:"
 
-            return start_suite_message
-        else:
-            result_status = result.status
-
+        if not result.parent:
             if result.passed:
                 result_icon = ":large_green_circle:"
+                result_status = result.status
             elif result.failed:
                 result_icon = ":red_circle:"
-            else:
-                result_icon = ":white_circle:"
+                result_status = result.status
 
-            principal_block[0]['text']['text'] = f'Aplicación en prueba:  {application}'
-            principal_block[1]['text']['text'] = f'*Branch*: {self.branch} || *Enterno*: {environment}'
-            principal_block[4]['text']['text'] = f'{result_icon} *{result_status}*'
+        principal_block[0]['text']['text'] = f'Aplicación en prueba:  {application}'
+        principal_block[1]['text']['text'] = f'*Branch*: {self.branch} || *Enterno*: {environment}'
+        principal_block[4]['text']['text'] = f'{result_icon} *{result_status}*'
 
-            principal_block[7]['fields'][0]['text'] = f'*Pruebas Ejecutadas:*\n{executions}'
-            principal_block[7]['fields'][1]['text'] = f'*Probado con éxito:*\n{success_executions}'
+        principal_block[7]['fields'][0]['text'] = f'*Pruebas Ejecutadas:*\n{executions}'
+        principal_block[7]['fields'][1]['text'] = f'*Probado con éxito:*\n{success_executions}'
 
-            principal_block[8]['fields'][0]['text'] = f'*Probado con error:*\n{failed_executions}'
-            principal_block[8]['fields'][1]['text'] = f'*Pruebas salteadas:*\n{skipped_executions}'
+        principal_block[8]['fields'][0]['text'] = f'*Probado con error:*\n{failed_executions}'
+        principal_block[8]['fields'][1]['text'] = f'*Pruebas salteadas:*\n{skipped_executions}'
 
-            if self.frontend_test:
-                principal_block[11]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>* || *BrowserStack*: *<{self.devicefarm_url}|{self.cicd_id}>*'
-            else:
-                principal_block[11]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>*'
+        if self.frontend_test:
+            principal_block[11]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>* || *BrowserStack*: *<{self.devicefarm_url}|{self.cicd_id}>*'
+        else:
+            principal_block[11]['text']['text'] = f'*CICD*: *<{self.cicd_url}|{self.cicd_id}>*'
 
-            return principal_block
+        return principal_block
 
     def _build_thread_message(self, result, attachment_color):
         tread_error_message[0]['color'] = f'{attachment_color}'
